@@ -41,8 +41,9 @@ async function main() {
   setupSymlinks();
 
   const phpPaths = await getPhpWatchPaths();
-  const phpIgnorePaths = await getPhpIgnorePaths();
+  const phpIgnorePaths = (await getPhpIgnorePaths()).map((path) => `!${path}`);
   const lessFiles = new Set<string>();
+
   let ready = false;
 
   const watchPaths = await globby([
